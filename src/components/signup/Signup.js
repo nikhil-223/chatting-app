@@ -9,16 +9,13 @@ const Signup = () => {
 		<div id="signup" className="signup">
 			<div className={`signup_box `}>
 				<form onSubmit={handleSignup} className="signup_box_form">
+					<input type="text" name="name" placeholder="Name" required />
+					<input type="text" name="username" placeholder="Username" required />
+					<input type="text" name="password" placeholder="Password" required />
 					<input
 						type="text"
-						name="username"
-						placeholder="Username"
-						required
-					/>
-					<input
-						type="text"
-						name="password"
-						placeholder="Password"
+						name="confirm password"
+						placeholder="Confirm Password"
 						required
 					/>
 					<div className="signup_box_form_button-area">
