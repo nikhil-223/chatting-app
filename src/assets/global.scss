@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Pacifico&family=Poppins:wght@200;300;400&family=Roboto+Condensed&family=Roboto:wght@500&display=swap');
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 1.1rem;
+  font-family: 'Roboto';
+  color: rgb(237, 228, 228); 
+}
+*{
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+    color: unset;
+}
+$color-50: #0A4D68;
+$color-30: #07222d;
+$color-15: #0b464f;
+$color-5: #096978;
+$color-text: white;
+
+::-webkit-scrollbar{
+    display: none;
+}
