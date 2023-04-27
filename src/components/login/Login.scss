@@ -26,6 +26,14 @@
 			gap: 1rem;
 			color: var(--text-color);
 
+			&_error{
+				color: red;
+				width: 100%;
+				height: 1rem;
+				font-size: 1rem;
+				
+			}
+
 			& input:not(input[type='submit']){
 				height: 3.25rem;
 				width: 100%;
@@ -55,6 +63,15 @@
 					color: black;
 					font-size: 0.8rem;
 				}
+
+				& button{
+				height: 2rem;
+				width: 5rem;
+				border-radius: 0.4rem;
+				border: none;
+				background-color: rgb(205, 129, 129);
+				cursor: pointer;
+			}
 			}
 		}
 	}

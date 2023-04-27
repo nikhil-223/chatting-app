@@ -1,0 +1,26 @@
+.alert {
+	width: auto;
+	padding: 0.5rem 1rem;
+	border-radius: 0.3rem;
+	background-color: white;
+	height: auto;
+	position: fixed;
+	bottom: 3rem;
+    left: 0;
+	color: black;
+	margin: 1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.5s;
+	transform: translate(calc(-100% - 1rem));
+
+	&_danger {
+		background-color: red;
+		transform: translate(0);
+	}
+	&_success {
+		background-color: green;
+		transform: translate(0);
+	}
+}
