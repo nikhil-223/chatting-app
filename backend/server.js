@@ -44,7 +44,7 @@ const io = require("socket.io")(server);
 app.use(function (req, res, next) {
 	req.io = io;
 	next();
-});
+}); 
 
 //mongoose connect
 console.log(mongodbURI);

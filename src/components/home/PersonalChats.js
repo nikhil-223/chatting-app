@@ -1,18 +1,14 @@
 import React from 'react'
+import { useAppSelector } from '../../store/storeAccess';
 
 const PersonalChats = () => {
-    const chats=[
-        {name:'nikhil'},
-        {name:'rahul'},
-        {name:'vishnu'},
-        {name:'vijay'},
-        {name:'vishal'},
-    ]
+	const {conversations}=useAppSelector()
+	console.log(conversations);
   return (
 		<section className="chat_logs_convo">
-			{chats.map((item) => {
+			{conversations.map((item,index) => {
 				return (
-					<div className="chat_logs_convo_item personal_chat_item">
+					<div key={index} className="chat_logs_convo_item personal_chat_item">
 						{item.name.charAt(0).toUpperCase().concat(item.name.slice(1))}
 					</div>
 				);

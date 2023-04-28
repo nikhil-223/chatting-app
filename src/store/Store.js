@@ -9,7 +9,7 @@ const store = configureStore({
 		alert:AlertSlice,
 		login:LoginSlice,
 		user: UserSlice,
-		coversation: ConversationSlice,
+		conversation: ConversationSlice,
 		messages: MessageSlice,
 	},
 	middleware: (getDefaultMiddleware) =>

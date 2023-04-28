@@ -6,7 +6,7 @@ import { signup } from "../../api/api";
 import { useAppSelector } from "../../store/storeAccess";
 
 const Signup = () => {
-	const { isErrorSignup, signupToken } = useAppSelector();
+	const { isErrorSignup} = useAppSelector();
 	const dispatch = useDispatch();
 	let history = useNavigate();
 
@@ -14,12 +14,13 @@ const Signup = () => {
 	const handleNameChange = (e) => {
 		setname(e.target.value);
 	};
+	const token = localStorage.getItem("token");
 
 	useEffect(() => {
-		if (signupToken !== "") {
+		if (token) {
 			history("/home");
 		}
-	}, [signupToken,history]);
+	}, [token, history, dispatch]);
 
 	const [username, setUsername] = useState("");
 	const handleUsernameChange = (e) => {

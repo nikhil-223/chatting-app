@@ -12,6 +12,7 @@ const UserSlice = createSlice({
 		// Case to handle successful data fetch
 		builder.addCase(signup.fulfilled, (state, action) => {
 			if (action.payload.token) {
+				localStorage.setItem("token", action.payload.token);
 				state.token = action.payload.token;
 				state.isError = false;
 			} else {
@@ -24,10 +25,10 @@ const UserSlice = createSlice({
 			console.log(action.payload);
 		});
 
-		builder.addCase(signup.pending,(state,action)=>{
-			state.isError=false;
-			state.token = ""
-		})
+		builder.addCase(signup.pending, (state, action) => {
+			state.isError = false;
+			state.token = "";
+		});
 	},
 });
 

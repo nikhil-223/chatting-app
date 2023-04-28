@@ -1,20 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { conversationApi } from "../../api/api";
 
 // Define a new slice of the Redux store called "alert"
 const ConversationSlice = createSlice({
 	name: "conversation",
 	initialState: {
-		type: "",
+		conversations: [],
 		message: "",
 	},
 	// Define the reducers for the slice
-	reducers: {
+	extraReducers: (builder)=>{
 		// Define an action called "setAlert"
-		setUser(state, action) {
-			// Update the state with the type and message values passed in the action payload
-			state.type = action.payload.type;
-			state.message = action.payload.message;
-		},
+		builder.addCase(conversationApi.fulfilled,(state,action)=>{
+			state.conversations= action.payload;
+		})
 	},
 });
 

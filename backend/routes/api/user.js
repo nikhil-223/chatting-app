@@ -111,7 +111,7 @@ router.get("/", async (req, res) => {
 		return res.status(400).json("unauthorised");
 	}
 	let user = await User.aggregate()
-		.match({ _id: { $not: { $eq: jwtUser.id } } })
+		.match({ _id: { $not: { $eq: jwtUser.id } } }) 
 		.project({
 			password: 0,
 			date: 0,

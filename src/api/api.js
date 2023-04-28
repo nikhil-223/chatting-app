@@ -38,3 +38,18 @@ export const loginApi = createAsyncThunk(
 		return response.json();
 	}
 );
+export const conversationApi = createAsyncThunk(
+	"conversationApi",
+	async (JWTtoken) => {
+		
+		const response = await fetch(`http://localhost:5000/api/users/`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json",
+				"auth": JWTtoken,
+			}
+		});
+		// Convert the response to a JSON object and return it
+		return response.json();
+	}
+);

@@ -6,15 +6,17 @@ import { loginApi } from "../../api/api";
 import { useAppSelector } from "../../store/storeAccess";
 
 const Login = () => {
-	const { isErrorLogin ,loginToken} = useAppSelector();
+	const { isErrorLogin } = useAppSelector();
 	const dispatch = useDispatch();
 	let history = useNavigate();
-	
+
+	const token = localStorage.getItem("token");
+
 	useEffect(() => {
-		if (loginToken !== "") {
+		if (token) {
 			history("/home");
 		}
-	}, [loginToken, history]);
+	}, [token,history, dispatch]);
 
 	const [username, setUsername] = useState("");
 	const handleUsernameChange = (e) => {

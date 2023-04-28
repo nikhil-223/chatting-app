@@ -1,8 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.scss";
-import {Link, Outlet} from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { conversationApi } from "../../api/api";
+import { useDispatch } from "react-redux";
 
 const Home = () => {
+	let history = useNavigate();
+	const dispatch = useDispatch();
+	const token = localStorage.getItem("token");
+	useEffect(() => {
+		if (token) {
+			dispatch(conversationApi(token));
+		} else {
+			history("/login");
+		}
+	}, [token, dispatch]);
+
 	return (
 		<section id="home" className="chat">
 			{/* chat logs on left */}
@@ -25,7 +38,7 @@ const Home = () => {
 						Personal chats
 					</Link>
 				</div>
-				<Outlet/>
+				<Outlet />
 			</div>
 
 			{/* chat box on right */}
