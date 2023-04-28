@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import "./Login.scss";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginApi } from "../../api/api";
 import { useAppSelector } from "../../store/storeAccess";
 
 const Login = () => {
-	const { isErrorLogin } = useAppSelector();
+	const { isErrorLogin ,loginToken} = useAppSelector();
 	const dispatch = useDispatch();
+	let history = useNavigate();
+	
+	useEffect(() => {
+		if (loginToken !== "") {
+			history("/home");
+		}
+	}, [loginToken, history]);
 
 	const [username, setUsername] = useState("");
 	const handleUsernameChange = (e) => {

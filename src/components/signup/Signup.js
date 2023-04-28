@@ -1,18 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Signup.scss";
 import { useDispatch } from "react-redux";
 import { signup } from "../../api/api";
 import { useAppSelector } from "../../store/storeAccess";
 
 const Signup = () => {
-	const { isErrorSignup } = useAppSelector();
+	const { isErrorSignup, signupToken } = useAppSelector();
 	const dispatch = useDispatch();
+	let history = useNavigate();
 
 	const [name, setname] = useState("");
 	const handleNameChange = (e) => {
 		setname(e.target.value);
 	};
+
+	useEffect(() => {
+		if (signupToken !== "") {
+			history("/home");
+		}
+	}, [signupToken,history]);
 
 	const [username, setUsername] = useState("");
 	const handleUsernameChange = (e) => {
@@ -29,22 +36,24 @@ const Signup = () => {
 		setPassword2(e.target.value);
 	};
 
-	const [alertMessage, setAlertMessage] = useState({related:"",message:"hello"})
+	const [alertMessage, setAlertMessage] = useState({
+		related: "",
+		message: "hello",
+	});
 
+	const alert = (message, related) => {
+		setAlertMessage({ related, message });
+		document.querySelector(".signup_box_form_error").style.visibility =
+			"visible";
+	};
 
-	const alert =(message,related)=>{
-		setAlertMessage({related,message})
-		document.querySelector(".signup_box_form_error").style.visibility="visible";
-	}
-	
 	useEffect(() => {
-		if (isErrorSignup)
-			alert("user name is taken",'username')
+		if (isErrorSignup) alert("user name is taken", "username");
 	}, [isErrorSignup]);
 
 	const handleSignup = () => {
 		if (name === "") {
-			alert("name field is empty","name")
+			alert("name field is empty", "name");
 		} else if (username === "") {
 			alert("username field is empty", "username");
 		} else if (password === "") {
@@ -62,7 +71,9 @@ const Signup = () => {
 		<div id="signup" className="signup">
 			<div className={`signup_box `}>
 				<div className="signup_box_form">
-					<div className="signup_box_form_error" style={{visibility:'hidden'}}>{`*${alertMessage.message}`}</div>
+					<div
+						className="signup_box_form_error"
+						style={{ visibility: "hidden" }}>{`*${alertMessage.message}`}</div>
 					<input
 						type="text"
 						name="name"
