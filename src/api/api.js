@@ -20,7 +20,6 @@ export const signup = createAsyncThunk(
 	}
 );
 
-
 export const loginApi = createAsyncThunk(
 	"loginApi",
 	async ({ username, password }) => {
@@ -38,17 +37,57 @@ export const loginApi = createAsyncThunk(
 		return response.json();
 	}
 );
-export const conversationApi = createAsyncThunk(
-	"conversationApi",
+export const connectionsApi = createAsyncThunk(
+	"connectionsApi",
 	async (JWTtoken) => {
-		
 		const response = await fetch(`http://localhost:5000/api/users/`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-				"auth": JWTtoken,
-			}
+				auth: JWTtoken,
+			},
 		});
+		// Convert the response to a JSON object and return it
+		return response.json();
+	}
+);
+
+export const chatApi = createAsyncThunk("chatApi", async (to) => {
+	try {
+		const response = await fetch(
+			`http://localhost:5000/api/messages/fetchMessages/query?to=${to}`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					auth: localStorage.getItem("token"),
+				}
+			}
+		);
+		return response.json();
+	} catch (error) {
+		console.log(error);
+	}
+});
+
+export const sendMessageApi = createAsyncThunk(
+	"sendMessageApi",
+	async ({ reciever, message }) => {
+		
+		const response = await fetch(
+			`http://localhost:5000/api/messages/personal`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					auth: localStorage.getItem("token"),
+				},
+				body: JSON.stringify({
+					reciever,
+					message,
+				}),
+			}
+		);
 		// Convert the response to a JSON object and return it
 		return response.json();
 	}

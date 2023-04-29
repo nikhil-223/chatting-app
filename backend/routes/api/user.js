@@ -6,6 +6,7 @@ const validateLoginInput = require("../../validation/login");
 const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const mongoose= require('mongoose')
 
 const JWT_SECRET = process.env.JWT_SECRET || "hello";
 // api/user/login  to login 
@@ -30,9 +31,9 @@ router.post("/login", async (req, res) => {
 				username: user.username,
 			};
 			jwt.sign(
-				payload,
+				payload, 
 				JWT_SECRET,
-				{
+				{ 
 					expiresIn: 31556929,
 				},
 				(err, token) => {
@@ -101,17 +102,18 @@ router.post("/register", async (req, res) => {
 
 // api/users/     to get all other users
 router.get("/", async (req, res) => {
-	let token = req.headers.auth;
+	let token = req.headers.auth; 
 	//token bearer token....
 	if (!token) {
 		return res.status(400).json("unauthorized");
 	}
 	let jwtUser = jwt.verify(token.split(" ")[1], JWT_SECRET);
 	if (!jwtUser) {
-		return res.status(400).json("unauthorised");
+		return res.status(400).json("unauthorised"); 
 	}
+	 
 	let user = await User.aggregate()
-		.match({ _id: { $not: { $eq: jwtUser.id } } }) 
+		.match({ _id: { $not: { $eq: new mongoose.Types.ObjectId(jwtUser.id) } } })
 		.project({
 			password: 0,
 			date: 0,

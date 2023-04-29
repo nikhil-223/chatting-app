@@ -1,20 +1,58 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.scss";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { conversationApi } from "../../api/api";
+import { connectionsApi, sendMessageApi } from "../../api/api";
 import { useDispatch } from "react-redux";
+import ChatBox from "./ChatBox";
+import { BsFillSendFill } from "react-icons/bs";
+import { useAppSelector } from "../../store/storeAccess";
 
 const Home = () => {
+	const { reciever } = useAppSelector();
+
 	let history = useNavigate();
 	const dispatch = useDispatch();
 	const token = localStorage.getItem("token");
 	useEffect(() => {
 		if (token) {
-			dispatch(conversationApi(token));
+			dispatch(connectionsApi(token));
 		} else {
 			history("/login");
 		}
-	}, [token, dispatch]);
+	}, [token, dispatch, history]);
+
+	//show menu
+	const showMenu = () => {
+		const menuDisplay = document.querySelector(".chat_logs_search_profile_menu")
+			.style.display;
+		menuDisplay === "none"
+			? (document.querySelector(
+					".chat_logs_search_profile_menu"
+			  ).style.display = "flex")
+			: (document.querySelector(
+					".chat_logs_search_profile_menu"
+			  ).style.display = "none");
+	};
+
+	// handle Log Out
+	const handleLogOut = () => {
+		localStorage.removeItem("token");
+		history("/login");
+	};
+
+	// sendMessageInput
+
+	const [sendMessageInput, setSendMessageInput] = useState("");
+	const handleSendMessageInput = (e) => {
+		setSendMessageInput(e.target.value);
+	};
+
+	// send message button
+	const handleSendMessage = () => {
+		dispatch(sendMessageApi({ reciever, message: sendMessageInput }));
+		setSendMessageInput('')
+	};
+
 
 	return (
 		<section id="home" className="chat">
@@ -22,7 +60,15 @@ const Home = () => {
 			<div className="chat_logs">
 				<header className="chat_logs_search">
 					<input type="text" name="search" placeholder="Search" />
-					<div className="chat_logs_search_profile"></div>
+					<div className="chat_logs_search_profile" onClick={showMenu}>
+						<ul
+							style={{ display: "none" }}
+							className="chat_logs_search_profile_menu">
+							<li>Profile</li>
+							<li onClick={handleLogOut}>Log out</li>
+							<li>Settings</li>
+						</ul>
+					</div>
 				</header>
 				<div className="chat_logs_switch">
 					<Link
@@ -46,8 +92,20 @@ const Home = () => {
 				<header className="chat_box_info">
 					<div className="chat_box_info_profile"></div>
 				</header>
-				<section className="chat_box_chatArea"></section>
-				<section className="chat_box_messageInput"></section>
+				<ChatBox />
+				<section className="chat_box_messageInput">
+					<input
+						type="text"
+						value={sendMessageInput}
+						placeholder="enter the message"
+						onChange={handleSendMessageInput}
+					/>
+					<button
+						className="chat_box_messageInput_sendButton"
+						onClick={handleSendMessage}>
+						<BsFillSendFill />
+					</button>
+				</section>
 			</div>
 		</section>
 	);

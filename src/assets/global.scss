@@ -20,6 +20,15 @@ $color-15: #0b464f;
 $color-5: #096978;
 $color-text: white;
 
+*{
+    user-select: none;
+}
+
+li{
+    text-decoration: none;
+    list-style: none;
+}
 ::-webkit-scrollbar{
     display: none;
 }
+

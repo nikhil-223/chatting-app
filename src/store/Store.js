@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { AlertSlice, ConversationSlice, LoginSlice, MessageSlice, UserSlice } from "./slices";
+import { AlertSlice, ChatSlice, ConnectionsSlice, LoginSlice, MessageSlice, UserSlice } from "./slices";
+
 
 
 
@@ -9,7 +10,8 @@ const store = configureStore({
 		alert:AlertSlice,
 		login:LoginSlice,
 		user: UserSlice,
-		conversation: ConversationSlice,
+		chat: ChatSlice,
+		connections: ConnectionsSlice,
 		messages: MessageSlice,
 	},
 	middleware: (getDefaultMiddleware) =>

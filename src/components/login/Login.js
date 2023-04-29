@@ -14,7 +14,7 @@ const Login = () => {
 
 	useEffect(() => {
 		if (token) {
-			history("/home");
+			history("/home/personal-chats");
 		}
 	}, [token,history, dispatch]);
 

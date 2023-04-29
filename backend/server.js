@@ -38,13 +38,14 @@ const server = app.listen(port, () => {
 	console.log("server is running on", port);
 });
 
-const io = require("socket.io")(server);
+// const io = require("socket.io")(server, { cors: { origin: "*" } });
 
-//assign socket object to every request (middleware)
-app.use(function (req, res, next) {
-	req.io = io;
-	next();
-}); 
+// Assign socket object to every request (middleware)
+// app.use(function (req, res, next) {
+// 	req.io = io;
+// 	next();
+// });
+
 
 //mongoose connect
 console.log(mongodbURI);

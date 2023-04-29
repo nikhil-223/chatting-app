@@ -1,22 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {  sendMessageApi } from "../../api/api";
 
 // Define a new slice of the Redux store called "alert"
 const MessageSlice = createSlice({
 	name: "messages",
 	initialState: {
-		type: "",
 		message: "",
+		reciever:"",
+	},
+	reducers: {
+		setReciver(state,action){
+			state.reciever= action.payload
+		}
 	},
 	// Define the reducers for the slice
-	reducers: {
-		// Define an action called "setAlert"
-		setUser(state, action) {
-			// Update the state with the type and message values passed in the action payload
-			state.type = action.payload.type;
-			state.message = action.payload.message;
-		},
-	},
+	extraReducers:(builder)=>{
+		builder.addCase(sendMessageApi.fulfilled,(state,action)=>{
+			
+			state.message= action.payload.body
+		})
+	}
 });
 
-export const { setAlert } = MessageSlice.actions;
+export const { setReciver } = MessageSlice.actions;
 export default MessageSlice.reducer;

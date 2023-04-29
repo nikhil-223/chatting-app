@@ -7,17 +7,18 @@ const Conversation = require("../../models/Conversation");
 const mongoose = require("mongoose");
 
 let jwtUser;
+const JWT_SECRET = process.env.JWT_SECRET || "hello";
 // global validation
 router.use((req, res, next) => {
 	let token = req.headers.auth;
 	//token bearer token...
 	//check token is present
 	if (!token) {
-		return res.status(400).json("unauthorised");
+		return res.status(400).json("unauthorised without token");
 	}
 	// validating token
-	jwtUser = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
-	console.log({ jwtUser });
+	jwtUser = jwt.verify(token.split(" ")[1], "hello");
+	console.log(jwtUser);
 	// jwtUser is a loged in user
 	if (!jwtUser) {
 		return res.status(400).json("unauthorised");
@@ -71,27 +72,56 @@ router.post("/personal", async (req, res) => {
 });
 
 //api/messages/fetchMessages
-router.get("/fetchMessages", async (req, res) => {
-	const from = new mongoose.Types.ObjectId(jwtUser.id);
-	const to = new mongoose.Types.ObjectId(req.body.to);
-	const conversation = await Conversation.findOne({recipients:[from,to]})
-	const messages= await Message.find({conversation:conversation._id})
-	res.json({conversation,messages})
+router.get("/fetchMessages/query", async (req, res) => {
+	const user1 = new mongoose.Types.ObjectId(jwtUser.id); 
+	const user2 = new mongoose.Types.ObjectId(req.query.to);
+
+	let conversationList= await Message.aggregate([
+		{
+			$lookup:{
+				from:'users',
+				localField:'from',
+				foreignField:'_id',
+				as:'fromObj'
+			}
+		},
+		{
+			$lookup:{
+				from:'users',
+				localField:'to',
+				foreignField:'_id',
+				as:'toObj'
+			}
+		},
+
+	]).match({
+		$or:[
+			{ $and:[{to:user1},{from:user2}]},
+			{ $and:[{to:user2},{from:user1}]},
+		]
+	}).project({
+		'toObj.password':0,
+		'toObj.__v':0,
+		'toObj.date':0,
+		'fromObj.password':0,
+		'fromObj.__v':0,
+		'fromObj.date':0,
+
+	}).exec();
+	res.send(conversationList);
 });
 
 //api/messages/fetchConversationList
 router.get("/fetchConversationList", async (req, res) => {
 	const from = new mongoose.Types.ObjectId(jwtUser.id);
-	const conversations = await Conversation.find(); 
-	res.json({ conversations});
+	const conversations = await Conversation.find();
+	res.json({ conversations });
 });
 
 //api/messages/fetchGlobalMessages
 router.get("/fetchGlobalMessages", async (req, res) => {
-	const globalMessages= await GlobalMessage.find()
-	res.json(globalMessages)
+	const globalMessages = await GlobalMessage.find();
+	res.json(globalMessages);
 });
-
-
 
 module.exports = router;
