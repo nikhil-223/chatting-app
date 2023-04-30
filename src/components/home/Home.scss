@@ -152,9 +152,10 @@
 
         &_chatArea{
             width: 100%;
-            height: 100%;
+            height: 40rem;
             display: flex;
             flex-direction: column;
+            overflow: scroll;
 
             &_message{
                 padding: 0.5rem 1rem;

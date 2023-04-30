@@ -67,8 +67,9 @@ router.post("/personal", async (req, res) => {
 		body: req.body.message,
 	});
 
-	let saveMessage = message.save();
-	res.json(message);
+	req.io.sockets.emit("messages", message);
+	let saveMessage = await message.save();
+	res.json(saveMessage); 
 });
 
 //api/messages/fetchMessages

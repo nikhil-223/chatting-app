@@ -9,7 +9,12 @@ const PerChatItem = (props) => {
 
 	const handleChatClick = () => {
 		dispatch(chatApi(id));
-		dispatch(setReciver(id))
+		dispatch(setReciver(id));
+
+		const elem = document.querySelector(".chat_box_chatArea");
+		setTimeout(() => {
+			elem.scrollTop = elem.scrollHeight;
+		}, 50);
 	};
 
 	return (

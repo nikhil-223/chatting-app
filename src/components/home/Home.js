@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import ChatBox from "./ChatBox";
 import { BsFillSendFill } from "react-icons/bs";
 import { useAppSelector } from "../../store/storeAccess";
+import { updateMessageOnClient } from "../../store/slices/ChatSlice";
 
 const Home = () => {
 	const { reciever } = useAppSelector();
@@ -50,7 +51,12 @@ const Home = () => {
 	// send message button
 	const handleSendMessage = () => {
 		dispatch(sendMessageApi({ reciever, message: sendMessageInput }));
-		setSendMessageInput('')
+		dispatch(updateMessageOnClient())
+		
+			const elem = document.querySelector(".chat_box_chatArea");
+			setTimeout(() => {
+				elem.scrollTop = elem.scrollHeight;
+			}, 50);
 	};
 
 

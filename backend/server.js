@@ -16,9 +16,32 @@ const app = express();
 const port = process.env.PORT || 5000;
 const mongodbURI = process.env.MONGOOSE_URI || "mongodb://localhost:27017/chat-app";
 
+
+//start server
+const server = app.listen(port, () => {
+	console.log("server is running on", port);
+});
+
+const io = require('socket.io')(server, { cors: { origin: "*" } });
+
+// Assign socket object to every request (middleware)
+app.use(function (req, res, next) {
+	req.io = io;
+	next();
+});
+
+
+//mongoose connect
+console.log(mongodbURI);
+mongoose
+.connect(mongodbURI)
+.then(() => console.log("mongoDB Successfully connected")) 
+.catch((err) => console.log(err));
+
 // middlewares
 //cors middleware
 app.use(cors());
+
 
 //Body Parser middleware to parse request bodies
 app.use(
@@ -28,28 +51,7 @@ app.use(
 );
 app.use(bodyParser.json());
 
+
 //api routes
 app.use("/api/users",user);
 app.use("/api/messages",message);
-
-
-//start server
-const server = app.listen(port, () => {
-	console.log("server is running on", port);
-});
-
-// const io = require("socket.io")(server, { cors: { origin: "*" } });
-
-// Assign socket object to every request (middleware)
-// app.use(function (req, res, next) {
-// 	req.io = io;
-// 	next();
-// });
-
-
-//mongoose connect
-console.log(mongodbURI);
-mongoose
-	.connect(mongodbURI)
-	.then(() => console.log("mongoDB Successfully connected")) 
-	.catch((err) => console.log(err));
