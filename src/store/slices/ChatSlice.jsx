@@ -14,6 +14,9 @@ const ChatSlice = createSlice({
 		},
 		updateMessageOnClient(state,action){
 			state.updateMessage += 1
+		},
+		clearChat(state,action){
+			state.chat=[];
 		}
 	},
 	// Define the reducers for the slice
@@ -26,5 +29,5 @@ const ChatSlice = createSlice({
 	},
 });
 
-export const { setLastMessage, updateMessageOnClient } = ChatSlice.actions; 
+export const { setLastMessage, updateMessageOnClient, clearChat } = ChatSlice.actions; 
 export default ChatSlice.reducer;

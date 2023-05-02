@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./Home.scss";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { connectionsApi, sendMessageApi } from "../../api/api";
+import {
+	connectionsApi,
+	conversationsApi,
+	sendMessageApi,
+} from "../../api/api";
 import { useDispatch } from "react-redux";
 import ChatBox from "./ChatBox";
 import { BsFillSendFill } from "react-icons/bs";
 import { useAppSelector } from "../../store/storeAccess";
-import { updateMessageOnClient } from "../../store/slices/ChatSlice";
+import { clearChat, updateMessageOnClient } from "../../store/slices/ChatSlice";
 
 const Home = () => {
-	const { reciever } = useAppSelector();
+	const { reciever,userName} = useAppSelector();
 
 	let history = useNavigate();
 	const dispatch = useDispatch();
@@ -17,6 +21,7 @@ const Home = () => {
 	useEffect(() => {
 		if (token) {
 			dispatch(connectionsApi(token));
+			dispatch(conversationsApi(token));
 		} else {
 			history("/login");
 		}
@@ -38,6 +43,7 @@ const Home = () => {
 	// handle Log Out
 	const handleLogOut = () => {
 		localStorage.removeItem("token");
+		dispatch(clearChat());
 		history("/login");
 	};
 
@@ -50,15 +56,14 @@ const Home = () => {
 
 	// send message button
 	const handleSendMessage = () => {
-		dispatch(sendMessageApi({ reciever, message: sendMessageInput }));
-		dispatch(updateMessageOnClient())
-		
-			const elem = document.querySelector(".chat_box_chatArea");
-			setTimeout(() => {
-				elem.scrollTop = elem.scrollHeight;
-			}, 50);
-	};
+		dispatch(sendMessageApi({ reciever:reciever.userId, message: sendMessageInput }));
+		dispatch(updateMessageOnClient());
 
+		const elem = document.querySelector(".chat_box_chatArea");
+		setTimeout(() => {
+			elem.scrollTop = elem.scrollHeight;
+		}, 50);
+	};
 
 	return (
 		<section id="home" className="chat">
@@ -66,7 +71,8 @@ const Home = () => {
 			<div className="chat_logs">
 				<header className="chat_logs_search">
 					<input type="text" name="search" placeholder="Search" />
-					<div className="chat_logs_search_profile" onClick={showMenu}>
+					<div className="chat_logs_search_profile " onClick={showMenu}>
+						<span className="profile_photo">{userName.charAt(0)}</span>
 						<ul
 							style={{ display: "none" }}
 							className="chat_logs_search_profile_menu">
@@ -78,16 +84,16 @@ const Home = () => {
 				</header>
 				<div className="chat_logs_switch">
 					<Link
-						to="global-chat"
+						to="personalChats"
 						className="chat_logs_switch_item chat_logs_switch_globchat">
 						{" "}
-						Global Chat
+						Chats
 					</Link>
 					<Link
-						to="personal-chats"
+						to="connections"
 						className="chat_logs_switch_item chat_logs_switch_personchat">
 						{" "}
-						Personal chats
+						Users
 					</Link>
 				</div>
 				<Outlet />
@@ -96,7 +102,10 @@ const Home = () => {
 			{/* chat box on right */}
 			<div className="chat_box">
 				<header className="chat_box_info">
-					<div className="chat_box_info_profile"></div>
+					<div className="chat_box_info_profile profile_photo">
+						{reciever.userName.charAt(0)}
+					</div>
+					<div className="chat_box_info_name">{reciever.userName}</div>
 				</header>
 				<ChatBox />
 				<section className="chat_box_messageInput">

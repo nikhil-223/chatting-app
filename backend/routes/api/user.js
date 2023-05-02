@@ -41,6 +41,7 @@ router.post("/login", async (req, res) => {
 					res.json({
 						success: true,
 						id: user._id,
+						name: user.name,
 						username: user.username,
 						token: "Bearer " + token,
 					});
@@ -90,6 +91,7 @@ router.post("/register", async (req, res) => {
 						res.json({
 							success: true,
 							id: user._id,
+							name:user.name,
 							username: user.username,
 							token: "Bearer " + token,
 						});

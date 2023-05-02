@@ -51,12 +51,29 @@ export const connectionsApi = createAsyncThunk(
 		return response.json();
 	}
 );
+export const conversationsApi = createAsyncThunk(
+	"conversationsApi",
+	async (JWTtoken) => {
+		const response = await fetch(
+			`http://localhost:5000/api/messages/fetchConversationList`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					auth: JWTtoken,
+				},
+			}
+		);
+		// Convert the response to a JSON object and return it
+		return response.json();
+	}
+);
 
 export const chatApi = createAsyncThunk("chatApi", async (to) => {
 	try {
 		const response = await fetch(
 			`http://localhost:5000/api/messages/fetchMessages/query?to=${to}`,
-			{
+			{ 
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json",
@@ -75,7 +92,7 @@ export const sendMessageApi = createAsyncThunk(
 	async ({ reciever, message }) => {
 		
 		const response = await fetch(
-			`http://localhost:5000/api/messages/personal`,
+			`http://localhost:5000/api/messages/personalMessage`,
 			{
 				method: "POST",
 				headers: {

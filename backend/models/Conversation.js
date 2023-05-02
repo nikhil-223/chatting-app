@@ -16,4 +16,4 @@ const ConversationSchema = new Schema({
 		default: Date.now,
 	},
 });
-module.exports = mongoose.model("convesation", ConversationSchema);
+module.exports = mongoose.model("conversation", ConversationSchema);

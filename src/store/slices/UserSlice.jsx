@@ -7,6 +7,7 @@ const UserSlice = createSlice({
 	initialState: {
 		token: "",
 		userId:'',
+		userName:"",
 		isError: false,
 	},
 	extraReducers: (builder) => { 
@@ -16,6 +17,7 @@ const UserSlice = createSlice({
 				localStorage.setItem("token", action.payload.token);
 				localStorage.setItem("userId", action.payload.id);
 				state.userId=action.payload.id;
+				state.userName=action.payload.name;
 				state.token = action.payload.token;
 				state.isError = false;
 			} else {
@@ -38,6 +40,7 @@ const UserSlice = createSlice({
 				localStorage.setItem("token", action.payload.token);
 				localStorage.setItem("userId", action.payload.id);
 				state.userId = action.payload.id;
+				state.userName = action.payload.name;
 				state.token = action.payload.token;
 				state.isError = false;
 			} else {

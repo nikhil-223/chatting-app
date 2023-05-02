@@ -20,7 +20,6 @@ const ChatBox = () => {
 		}
 	}, [socket, dispatch]);
 
-
 	return (
 		<section className="chat_box_chatArea">
 			{chat.map((item) => {
@@ -31,7 +30,7 @@ const ChatBox = () => {
 						}`}
 						key={item._id}>
 						{" "}
-						{item.body}{" "} 
+						{item.body}{" "}
 					</div>
 				);
 			})}

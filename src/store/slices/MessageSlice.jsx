@@ -6,11 +6,15 @@ const MessageSlice = createSlice({
 	name: "messages",
 	initialState: {
 		message: "",
-		reciever:"",
+		reciever:{
+			userId:"",
+			userName:""
+		},
 	},
 	reducers: {
 		setReciver(state,action){
-			state.reciever= action.payload
+			state.reciever.userId= action.payload.userId
+			state.reciever.userName= action.payload.userName
 		}
 	},
 	// Define the reducers for the slice

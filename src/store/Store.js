@@ -1,17 +1,23 @@
 import { configureStore } from "@reduxjs/toolkit";
 
-import { AlertSlice, ChatSlice, ConnectionsSlice, LoginSlice, MessageSlice, UserSlice } from "./slices";
-
-
-
+import {
+	AlertSlice,
+	ChatSlice,
+	ConnectionsSlice,
+	ConversationsSlice,
+	LoginSlice,
+	MessageSlice,
+	UserSlice,
+} from "./slices";
 
 const store = configureStore({
 	reducer: {
-		alert:AlertSlice,
-		login:LoginSlice,
+		alert: AlertSlice,
+		login: LoginSlice,
 		user: UserSlice,
 		chat: ChatSlice,
 		connections: ConnectionsSlice,
+		conversations: ConversationsSlice,
 		messages: MessageSlice,
 	},
 	middleware: (getDefaultMiddleware) =>

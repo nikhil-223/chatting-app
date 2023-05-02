@@ -38,8 +38,8 @@ router.post("/global_message", async (req, res) => {
 	res.json(saveMessage);
 });
 
-//api/messages/personal
-router.post("/personal", async (req, res) => {
+//api/messages/personalMessage
+router.post("/personalMessage", async (req, res) => {
 	let from = new mongoose.Types.ObjectId(jwtUser.id);
 	let to = new mongoose.Types.ObjectId(req.body.reciever);
 
@@ -69,54 +69,80 @@ router.post("/personal", async (req, res) => {
 
 	req.io.sockets.emit("messages", message);
 	let saveMessage = await message.save();
-	res.json(saveMessage); 
+	res.json(saveMessage);
 });
 
 //api/messages/fetchMessages
 router.get("/fetchMessages/query", async (req, res) => {
-	const user1 = new mongoose.Types.ObjectId(jwtUser.id); 
+	const user1 = new mongoose.Types.ObjectId(jwtUser.id);
 	const user2 = new mongoose.Types.ObjectId(req.query.to);
 
-	let conversationList= await Message.aggregate([
+	let conversationList = await Message.aggregate([
 		{
-			$lookup:{
-				from:'users',
-				localField:'from',
-				foreignField:'_id',
-				as:'fromObj'
-			}
+			$lookup: {
+				from: "users",
+				localField: "from",
+				foreignField: "_id",
+				as: "fromObj",
+			},
 		},
 		{
-			$lookup:{
-				from:'users',
-				localField:'to',
-				foreignField:'_id',
-				as:'toObj'
-			}
+			$lookup: {
+				from: "users",
+				localField: "to",
+				foreignField: "_id",
+				as: "toObj",
+			},
 		},
-
-	]).match({
-		$or:[
-			{ $and:[{to:user1},{from:user2}]},
-			{ $and:[{to:user2},{from:user1}]},
-		]
-	}).project({
-		'toObj.password':0,
-		'toObj.__v':0,
-		'toObj.date':0,
-		'fromObj.password':0,
-		'fromObj.__v':0,
-		'fromObj.date':0,
-
-	}).exec();
+	])
+		.match({
+			$or: [
+				{ $and: [{ to: user1 }, { from: user2 }] },
+				{ $and: [{ to: user2 }, { from: user1 }] },
+			],
+		})
+		.project({
+			"toObj.password": 0,
+			"toObj.__v": 0,
+			"toObj.date": 0,
+			"fromObj.password": 0,
+			"fromObj.__v": 0,
+			"fromObj.date": 0,
+		})
+		.exec();
 	res.send(conversationList);
 });
 
 //api/messages/fetchConversationList
 router.get("/fetchConversationList", async (req, res) => {
 	const from = new mongoose.Types.ObjectId(jwtUser.id);
-	const conversations = await Conversation.find();
-	res.json({ conversations });
+	const conversations = await Conversation.aggregate([
+		{
+			$match: {
+				recipients: {
+					$all: [{ $elemMatch: { $eq: from } }],
+				},
+			},
+		},
+		{
+			$unwind: "$recipients",
+		},
+		{
+			$match: {
+				recipients: { $ne: from },
+			},
+		},
+		{
+			$lookup: {
+				from: "users",
+				localField: "recipients",
+				foreignField: "_id",
+				as: "chatter",
+			},
+		},
+	]);
+
+	res.json(conversations);
 });
 
 //api/messages/fetchGlobalMessages
