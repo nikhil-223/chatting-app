@@ -7,15 +7,17 @@ const ChatLogs = () => {
 
 	return (
 		<section className="chat_logs_convo">
-			<div className="chat_logs_convo_item global_chat">Global Chats</div>
+			<div className="chat_logs_convo_item global_chat">
+				<span className="profile_photo_chat">G</span> Global Chats
+			</div>
 			{conversations.map((item, i) => {
 				return (
-						<PersonalChat
-							key={i}
-							name={item.chatter[0].name}
-							lastMessage={item.lastMessage}
-							id={item.chatter[0]._id}
-						/>
+					<PersonalChat
+						key={i}
+						name={item.chatter[0].name}
+						lastMessage={item.lastMessage}
+						id={item.chatter[0]._id}
+					/>
 				);
 			})}
 		</section>
