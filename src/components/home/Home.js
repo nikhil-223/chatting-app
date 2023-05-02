@@ -72,7 +72,9 @@ const Home = () => {
 				<header className="chat_logs_search">
 					<input type="text" name="search" placeholder="Search" />
 					<div className="chat_logs_search_profile " onClick={showMenu}>
-						<span className="profile_photo">{userName.charAt(0)}</span>
+						<span className="profile_photo">
+							{localStorage.getItem("userName").charAt(0).toUpperCase()}
+						</span>
 						<ul
 							style={{ display: "none" }}
 							className="chat_logs_search_profile_menu">

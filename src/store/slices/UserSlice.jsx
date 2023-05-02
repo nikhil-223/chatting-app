@@ -16,6 +16,7 @@ const UserSlice = createSlice({
 			if (action.payload.token) {
 				localStorage.setItem("token", action.payload.token);
 				localStorage.setItem("userId", action.payload.id);
+				localStorage.setItem("userName", action.payload.name);
 				state.userId=action.payload.id;
 				state.userName=action.payload.name;
 				state.token = action.payload.token;
@@ -39,6 +40,7 @@ const UserSlice = createSlice({
 			if (action.payload.token) {
 				localStorage.setItem("token", action.payload.token);
 				localStorage.setItem("userId", action.payload.id);
+				localStorage.setItem("userName", action.payload.name);
 				state.userId = action.payload.id;
 				state.userName = action.payload.name;
 				state.token = action.payload.token;

@@ -18,7 +18,7 @@ const Signup = () => {
 
 	useEffect(() => {
 		if (token) {
-			history("/home/connections");
+			history("/home/personalChats");
 		}
 	}, [token, history, dispatch]);
 

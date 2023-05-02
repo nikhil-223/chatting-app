@@ -10,6 +10,7 @@ const ChatBox = () => {
 	const [socket, setSocket] = useState(null);
 
 	useEffect(() => {
+		
 		if (socket === null) {
 			setSocket(io("http://localhost:5000"));
 		}
