@@ -26,8 +26,10 @@ const ChatBox = () => {
 			{chat.map((item) => {
 				return (
 					<div
-						className={`chat_box_chatArea_message ${
-							item.from === localStorage.getItem("userId") ? "flex-end" : ""
+						className={` ${
+							item.from === localStorage.getItem("userId")
+								? "flex-end"
+								: "chat_box_chatArea_message"
 						}`}
 						key={item._id}>
 						{" "}
