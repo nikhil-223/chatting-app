@@ -7,6 +7,17 @@ const UsersItem = (props) => {
 	const { name, id } = props;
 	const dispatch = useDispatch();
 
+	const viewport = (x) => {
+		if (x.matches) {
+			setTimeout(() => {
+				document.querySelector(".chat_logs").style.display = "none";
+				document.querySelector(".chat_box").style.display = "flex";
+			}, 50);
+		}
+	};
+
+	var x = window.matchMedia("(max-width:800px)");
+
 	const handleChatClick = () => {
 		dispatch(chatApi(id));
 		dispatch(
@@ -20,10 +31,8 @@ const UsersItem = (props) => {
 		if (elem) {
 			elem.scrollTop = elem.scrollHeight;
 		}
-		setTimeout(() => {
-			document.querySelector(".chat_logs").style.display = "none";
-			document.querySelector(".chat_box").style.display = "flex";
-		}, 50);
+
+		viewport(x)
 	};
 
 	return (

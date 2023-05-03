@@ -9,6 +9,17 @@ const PersonalChat = (props) => {
 	const { chat } = useAppSelector();
 	const dispatch = useDispatch();
 
+	const viewport=(x)=>{
+		if(x.matches){
+			setTimeout(() => {
+				document.querySelector(".chat_logs").style.display = "none";
+				document.querySelector(".chat_box").style.display = "flex";
+			}, 50);
+		}
+	}
+
+	var x = window.matchMedia("(max-width:800px)")
+
 	const handleChatClick = () => {
 		dispatch(chatApi(id));
 		dispatch(
@@ -24,10 +35,9 @@ const PersonalChat = (props) => {
 				elem.scrollTop = elem.scrollHeight;
 			}, 50);
 		}
-setTimeout(() => {
-	document.querySelector(".chat_logs").style.display = "none";
-	document.querySelector(".chat_box").style.display = "flex";
-}, 50);
+
+		viewport(x);
+		
 	};
 
 	return (
@@ -38,7 +48,7 @@ setTimeout(() => {
 					{name.charAt(0).toUpperCase().concat(name.slice(1))}
 				</span>
 				<span className="chat_logs_convo_item_info_lastMessage">
-					{lastMessage.split('').slice(0,20).join().split(',')} ...
+					{lastMessage.split("").slice(0, 20).join().split(",")} ...
 				</span>
 			</div>
 		</div>
