@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { chatApi } from "../../api/api";
 import { setReciver } from "../../store/slices/MessageSlice";
@@ -17,8 +17,12 @@ const UsersItem = (props) => {
 		);
 
 		const elem = document.querySelector(".chat_box_chatArea");
-		setTimeout(() => {
+		if (elem) {
 			elem.scrollTop = elem.scrollHeight;
+		}
+		setTimeout(() => {
+			document.querySelector(".chat_logs").style.display = "none";
+			document.querySelector(".chat_box").style.display = "flex";
 		}, 50);
 	};
 

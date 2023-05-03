@@ -11,7 +11,8 @@ import ChatBox from "./ChatBox";
 import { BsFillSendFill } from "react-icons/bs";
 import { useAppSelector } from "../../store/storeAccess";
 import { clearChat, updateMessageOnClient } from "../../store/slices/ChatSlice";
-import emptyChatIllustration from '../../images/emptyChatIllustration.svg'
+import emptyChatIllustration from "../../images/emptyChatIllustration.svg";
+import { FaArrowLeft } from "react-icons/fa";
 
 const Home = () => {
 	const { reciever, chat } = useAppSelector();
@@ -81,6 +82,15 @@ const Home = () => {
 		}
 	};
 
+	// back to chat logs
+	const toChatLogs = () => {
+		setTimeout(() => {
+			document.querySelector(".chat_logs").style.display = "flex";
+			document.querySelector(".chat_box").style.display = "none";
+		}, 50);
+		history("/home/personalChats");
+	};
+
 	return (
 		<section id="home" className="chat">
 			{/* chat logs on left */}
@@ -90,7 +100,7 @@ const Home = () => {
 						type="text"
 						name="search"
 						placeholder="Search"
-						autocomplete="off"
+						autoComplete="off"
 					/>
 					<div className="chat_logs_search_profile " onClick={showMenu}>
 						<span className="profile_photo">
@@ -123,11 +133,18 @@ const Home = () => {
 			</div>
 
 			{/* chat box on right */}
-			{chat[0] ? (
+			{chat !== "" ? (
 				<div className="chat_box">
 					<header className="chat_box_info">
-						<div className="chat_box_info_profile profile_photo">
-							{reciever.userName.charAt(0)}
+						<div className="chat_box_info_profile" style={{display:"flex"}}>
+							<span
+								className="chat_box_info_profile_backButton"
+								onClick={toChatLogs}>
+								<FaArrowLeft />
+							</span>
+							<div className=" profile_photo">
+								{reciever.userName.charAt(0)}
+							</div>
 						</div>
 						<div className="chat_box_info_name">{reciever.userName}</div>
 					</header>

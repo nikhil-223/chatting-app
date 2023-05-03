@@ -24,6 +24,10 @@ const PersonalChat = (props) => {
 				elem.scrollTop = elem.scrollHeight;
 			}, 50);
 		}
+setTimeout(() => {
+	document.querySelector(".chat_logs").style.display = "none";
+	document.querySelector(".chat_box").style.display = "flex";
+}, 50);
 	};
 
 	return (
@@ -34,7 +38,7 @@ const PersonalChat = (props) => {
 					{name.charAt(0).toUpperCase().concat(name.slice(1))}
 				</span>
 				<span className="chat_logs_convo_item_info_lastMessage">
-					{lastMessage}
+					{lastMessage.split('').slice(0,20).join().split(',')} ...
 				</span>
 			</div>
 		</div>

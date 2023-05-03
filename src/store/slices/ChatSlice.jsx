@@ -5,7 +5,7 @@ import { chatApi } from "../../api/api";
 const ChatSlice = createSlice({
 	name: "chat",
 	initialState: {
-		chat: [],
+		chat:"",
 		updateMessage: 1,
 	},
 	reducers: {
