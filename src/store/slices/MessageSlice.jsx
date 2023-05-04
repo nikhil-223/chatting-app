@@ -20,7 +20,6 @@ const MessageSlice = createSlice({
 	// Define the reducers for the slice
 	extraReducers:(builder)=>{
 		builder.addCase(sendMessageApi.fulfilled,(state,action)=>{
-			
 			state.message= action.payload.body
 		})
 	}

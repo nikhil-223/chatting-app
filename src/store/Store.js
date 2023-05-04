@@ -5,7 +5,6 @@ import {
 	ChatSlice,
 	ConnectionsSlice,
 	ConversationsSlice,
-	LoginSlice,
 	MessageSlice,
 	UserSlice,
 } from "./slices";
@@ -13,7 +12,6 @@ import {
 const store = configureStore({
 	reducer: {
 		alert: AlertSlice,
-		login: LoginSlice,
 		user: UserSlice,
 		chat: ChatSlice,
 		connections: ConnectionsSlice,

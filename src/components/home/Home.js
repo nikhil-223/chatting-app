@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Home.scss";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
-	connectionsApi,
-	conversationsApi,
 	sendMessageApi,
 } from "../../api/api";
 import { useDispatch } from "react-redux";
@@ -19,15 +17,6 @@ const Home = () => {
 
 	let history = useNavigate();
 	const dispatch = useDispatch();
-	const token = localStorage.getItem("token");
-	useEffect(() => {
-		if (token) {
-			dispatch(connectionsApi(token));
-			dispatch(conversationsApi(token));
-		} else {
-			history("/login");
-		}
-	}, [token, dispatch, history]);
 
 	//show menu
 	const showMenu = () => {
@@ -50,7 +39,6 @@ const Home = () => {
 	};
 
 	// sendMessageInput
-
 	const [sendMessageInput, setSendMessageInput] = useState("");
 	const handleSendMessageInput = (e) => {
 		setSendMessageInput(e.target.value);
@@ -136,7 +124,7 @@ const Home = () => {
 			{chat !== "" ? (
 				<div className="chat_box">
 					<header className="chat_box_info">
-						<div className="chat_box_info_profile" style={{display:"flex"}}>
+						<div className="chat_box_info_profile" style={{ display: "flex" }}>
 							<span
 								className="chat_box_info_profile_backButton"
 								onClick={toChatLogs}>

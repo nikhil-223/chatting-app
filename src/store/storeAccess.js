@@ -2,8 +2,7 @@ import { useSelector } from "react-redux";
 
 export const useAppSelector = () => {
 	const {
-		user: { token: signupToken, userId,userName, isError: isErrorSignup },
-		login: { token: loginToken, isError: isErrorLogin },
+		user: { token, userId,userName, isError: isErrorSignup },
 		connections: { connections },
 		conversations: { conversations },
 		chat: { chat, updateMessage },
@@ -13,14 +12,12 @@ export const useAppSelector = () => {
 	return {
 		isErrorSignup,
 		userId,
-		signupToken,
+		token,
 		alert,
 		updateMessage,
 		conversations,
 		userName,
 		chat,
-		loginToken,
-		isErrorLogin,
 		connections,
 		reciever,
 	};

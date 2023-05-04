@@ -5,7 +5,7 @@ import { loginApi, signup } from "../../api/api";
 const UserSlice = createSlice({
 	name: "user",
 	initialState: {
-		token: "",
+		token: localStorage.getItem('token'),
 		userId:'',
 		userName:"",
 		isError: false,

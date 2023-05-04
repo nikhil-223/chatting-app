@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useAppSelector } from "../../store/storeAccess";
 import PersonalChat from "./PersonalChat";
+import { conversationsApi } from "../../api/api";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const ChatLogs = () => {
-	const { conversations } = useAppSelector();
+	const { conversations,token } = useAppSelector();
+	const dispatch = useDispatch()
+	let history = useNavigate()
+
+	useEffect(() => {
+		if (token) {
+			dispatch(conversationsApi(token));
+		} else {
+			history("/login");
+		}
+	}, [token,dispatch,history]); 
 
 	return (
 		<section className="chat_logs_convo">

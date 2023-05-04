@@ -35,9 +35,7 @@ const PersonalChat = (props) => {
 				elem.scrollTop = elem.scrollHeight;
 			}, 50);
 		}
-
 		viewport(x);
-		
 	};
 
 	return (
