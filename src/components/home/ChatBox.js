@@ -12,7 +12,7 @@ const ChatBox = () => {
 	useEffect(() => {
 		
 		if (socket === null) {
-			setSocket(io("http://localhost:5000"));
+			setSocket(io("https://chattingappbackend.onrender.com"));
 		}
 		if (socket) {
 			socket.on("messages", (data) => {
