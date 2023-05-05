@@ -5,29 +5,39 @@ import { chatApi } from "../../api/api";
 const ChatSlice = createSlice({
 	name: "chat",
 	initialState: {
-		chat:"",
-		updateMessage: 1,
+		data:[],
+		isLoading:false,
+		isError:false
 	},
 	reducers: {
 		setLastMessage(state, action) {
-			state.chat.push(action.payload);
-		},
-		updateMessageOnClient(state,action){
-			state.updateMessage += 1
+			state.data.push(action.payload);
 		},
 		clearChat(state,action){
-			state.chat=[];
+			state.data=[];
 		}
 	},
 	// Define the reducers for the slice
 	extraReducers: (builder) => {
 		builder.addCase(chatApi.fulfilled, (state, action) => {
-			state.chat = action.payload;
+			state.data = action.payload;
+			state.isLoading= false
+			state.isError= false 
 		});
 
-		builder.addCase(chatApi.rejected, (state, action) => {});
+		builder.addCase(chatApi.pending, (state, action) => {
+			state.chat = [];
+			state.isLoading= true
+			state.isError= false
+		});
+
+		builder.addCase(chatApi.rejected, (state, action) => {
+			state.isError = true
+			state.isLoading= false
+			state.data =[]
+		});
 	},
 });
 
-export const { setLastMessage, updateMessageOnClient, clearChat } = ChatSlice.actions; 
+export const { setLastMessage, clearChat } = ChatSlice.actions; 
 export default ChatSlice.reducer;

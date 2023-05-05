@@ -18,13 +18,17 @@ const Connections = () => {
 		}
 	}, [token,dispatch,history]);
 
-	return (
+	return (connections.isLoading === true ? (
+		<div className="loader">
+			<img src="https://i.gifer.com/Vp3R.gif" alt="loader" />
+		</div>
+	) : (
 		<section className="chat_logs_convo">
-			{connections.map((item, index) => {
+			{connections.data.map((item, index) => {
 				return <UsersItem key={index} name={item.name} id={item._id} />;
 			})}
 		</section>
-	);
+	))
 };
 
 export default Connections;

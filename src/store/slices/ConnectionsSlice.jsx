@@ -6,15 +6,30 @@ import { connectionsApi } from "../../api/api";
 const ConnectionSlice = createSlice({
 	name: "connections",
 	initialState: {
-		connections: [],
-		message: "",
+		data: [],
+		isLoading:false,
+		isError:false
 	},
 	// Define the reducers for the slice
 	extraReducers: (builder)=>{
 		// Define an action called "setAlert"
 		builder.addCase(connectionsApi.fulfilled,(state,action)=>{
-			state.connections= action.payload;
+			state.data= action.payload;
+			state.isLoading = false;
+			state.isError = false;
 		})
+
+		builder.addCase(connectionsApi.pending, (state, action) => {
+			state.data = []
+			state.isLoading = true;
+			state.isError = false;
+		});
+
+		builder.addCase(connectionsApi.rejected, (state, action) => {
+			state.data = []
+			state.isLoading = false;
+			state.isError = true;
+		});
 	},
 });
 

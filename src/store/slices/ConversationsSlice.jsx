@@ -5,13 +5,29 @@ import { conversationsApi } from "../../api/api";
 const ConversationsSlice = createSlice({
 	name: "conversations",
 	initialState: {
-		conversations: [],
+		data: [],
+		isLoading:false,
+		isError:false
 	},
 	// Define the reducers for the slice
 	extraReducers: (builder) => {
 		builder.addCase(conversationsApi.fulfilled, (state, action) => {
-			state.conversations = action.payload;
+			state.data = action.payload;
+			state.isError=false
+			state.isLoading= false
 		});
+
+		builder.addCase(conversationsApi.pending, (state,action)=>{
+			state.data = []
+			state.isLoading= true
+			state.isError = false
+		})
+
+		builder.addCase(conversationsApi.rejected, (state,action)=>{
+			state.data = []
+			state.isLoading= false
+			state.isError = true
+		})
 	},
 });
 

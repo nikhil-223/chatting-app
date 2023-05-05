@@ -5,34 +5,41 @@ import { loginApi, signup } from "../../api/api";
 const UserSlice = createSlice({
 	name: "user",
 	initialState: {
-		token: localStorage.getItem('token'),
-		userId:'',
-		userName:"",
+		token: localStorage.getItem("token"),
+		error:"",
+		userId: "",
+		userName: "",
 		isError: false,
+		isLoading: false,
 	},
-	extraReducers: (builder) => { 
+	extraReducers: (builder) => {
 		// Case to handle successful data fetch
 		builder.addCase(signup.fulfilled, (state, action) => {
 			if (action.payload.token) {
 				localStorage.setItem("token", action.payload.token);
 				localStorage.setItem("userId", action.payload.id);
 				localStorage.setItem("userName", action.payload.name);
-				state.userId=action.payload.id;
-				state.userName=action.payload.name;
+				state.userId = action.payload.id;
+				state.userName = action.payload.name;
 				state.token = action.payload.token;
 				state.isError = false;
 			} else {
 				state.isError = true;
+				state.error= action.payload
 				state.token = "";
 			}
 		});
 
-		builder.addCase(signup.rejected, (state, action) => {
-			console.log(action.payload);
+		builder.addCase(signup.pending, (state, action) => {
+			state.token = "";
+			state.isError = false;
+			state.isLoading = true;
 		});
 
-		builder.addCase(signup.pending, (state, action) => {
-			state.isError = false;
+		builder.addCase(signup.rejected, (state, action) => {
+			state.error = action.payload;
+			state.isError = true;
+			state.isLoading = false;
 			state.token = "";
 		});
 
@@ -52,8 +59,16 @@ const UserSlice = createSlice({
 			}
 		});
 
+		builder.addCase(loginApi.pending, (state, action) => {
+			state.token = "";
+			state.isError = false;
+			state.isLoading = true;
+		});
+
 		builder.addCase(loginApi.rejected, (state, action) => {
+			state.error = action.payload;
 			state.isError = true;
+			state.isLoading = false;
 			state.token = "";
 		});
 	},

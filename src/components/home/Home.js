@@ -8,9 +8,9 @@ import { useDispatch } from "react-redux";
 import ChatBox from "./ChatBox";
 import { BsFillSendFill } from "react-icons/bs";
 import { useAppSelector } from "../../store/storeAccess";
-import { clearChat, updateMessageOnClient } from "../../store/slices/ChatSlice";
 import emptyChatIllustration from "../../images/emptyChatIllustration.svg";
 import { FaArrowLeft } from "react-icons/fa";
+import { clearChat } from "../../store/slices/ChatSlice";
 
 const Home = () => {
 	const { reciever, chat } = useAppSelector();
@@ -49,8 +49,6 @@ const Home = () => {
 		dispatch(
 			sendMessageApi({ reciever: reciever.userId, message: sendMessageInput })
 		);
-		dispatch(updateMessageOnClient());
-
 		const elem = document.querySelector(".chat_box_chatArea");
 		setTimeout(() => {
 			elem.scrollTop = elem.scrollHeight;
@@ -121,7 +119,7 @@ const Home = () => {
 			</div>
 
 			{/* chat box on right */}
-			{chat !== "" ? (
+			{chat.data[0] ? (
 				<div className="chat_box">
 					<header className="chat_box_info">
 						<div className="chat_box_info_profile" style={{ display: "flex" }}>

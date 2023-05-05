@@ -10,7 +10,6 @@ const ChatBox = () => {
 	const [socket, setSocket] = useState(null);
 
 	useEffect(() => {
-		
 		if (socket === null) {
 			setSocket(io("https://chattingappbackend.onrender.com"));
 		}
@@ -23,20 +22,26 @@ const ChatBox = () => {
 
 	return (
 		<section className="chat_box_chatArea">
-			{chat.map((item) => {
-				return (
-					<div
-						className={` ${
-							item.from === localStorage.getItem("userId")
-								? "flex-end"
-								: "chat_box_chatArea_message"
-						}`}
-						key={item._id}>
-						{" "}
-						{item.body}{" "}
-					</div>
-				);
-			})}
+			{chat.isLoading === true ? (
+				<div className="loader">
+					<img src="https://i.gifer.com/Vp3R.gif" alt="loader" />
+				</div>
+			) : (
+				chat.data.map((item) => {
+					return (
+						<div
+							className={` ${
+								item.from === localStorage.getItem("userId")
+									? "flex-end"
+									: "chat_box_chatArea_message"
+							}`}
+							key={item._id}>
+							{" "}
+							{item.body}{" "}
+						</div>
+					);
+				})
+			)}
 		</section>
 	);
 };

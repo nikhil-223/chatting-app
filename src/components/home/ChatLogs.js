@@ -6,9 +6,9 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const ChatLogs = () => {
-	const { conversations,token } = useAppSelector();
-	const dispatch = useDispatch()
-	let history = useNavigate()
+	const { conversations, token } = useAppSelector();
+	const dispatch = useDispatch();
+	let history = useNavigate();
 
 	useEffect(() => {
 		if (token) {
@@ -16,23 +16,29 @@ const ChatLogs = () => {
 		} else {
 			history("/login");
 		}
-	}, [token,dispatch,history]); 
+	}, [token, dispatch, history]);
 
 	return (
 		<section className="chat_logs_convo">
 			<div className="chat_logs_convo_item global_chat">
 				<span className="profile_photo_chat">G</span> Global Chats
 			</div>
-			{conversations.map((item, i) => {
-				return (
-					<PersonalChat
-						key={i}
-						name={item.chatter[0].name}
-						lastMessage={item.lastMessage}
-						id={item.chatter[0]._id}
-					/>
-				);
-			})}
+			{conversations.isLoading === true ? (
+				<div className="loader">
+					<img src="https://i.gifer.com/Vp3R.gif" alt="loader" />
+				</div>
+			) : (
+				conversations.data.map((item, i) => {
+					return (
+						<PersonalChat
+							key={i}
+							name={item.chatter[0].name}
+							lastMessage={item.lastMessage}
+							id={item.chatter[0]._id}
+						/>
+					);
+				})
+			)}
 		</section>
 	);
 };
