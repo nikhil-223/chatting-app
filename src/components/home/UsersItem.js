@@ -9,10 +9,8 @@ const UsersItem = (props) => {
 
 	const viewport = (x) => {
 		if (x.matches) {
-			setTimeout(() => {
-				document.querySelector(".chat_logs").style.display = "none";
-				document.querySelector(".chat_box").style.display = "flex";
-			}, 50);
+			document.querySelector(".chat_logs").style.display = "none";
+			document.querySelector(".chat_box").style.display = "flex";
 		}
 	};
 
@@ -26,13 +24,12 @@ const UsersItem = (props) => {
 				userName: name.charAt(0).toUpperCase().concat(name.slice(1)),
 			})
 		);
+		document.querySelector(".emptyChatArea").style.display = "none";
+		document.querySelector(".chat_box").style.display = "flex";
 
 		const elem = document.querySelector(".chat_box_chatArea");
-		if (elem) {
-			elem.scrollTop = elem.scrollHeight;
-		}
-
-		viewport(x)
+		if (elem) elem.scrollTop = elem.scrollHeight;
+		viewport(x);
 	};
 
 	return (

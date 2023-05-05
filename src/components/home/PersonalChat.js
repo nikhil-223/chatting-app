@@ -9,16 +9,13 @@ const PersonalChat = (props) => {
 	const { chat } = useAppSelector();
 	const dispatch = useDispatch();
 
-	const viewport=(x)=>{
-		if(x.matches){
-			setTimeout(() => {
-				document.querySelector(".chat_logs").style.display = "none";
-				document.querySelector(".chat_box").style.display = "flex";
-			}, 50);
-		}
-	}
+	const viewport = (x) => {
+		if (x.matches) {
+			document.querySelector(".chat_logs").style.display = "none";
+			document.querySelector(".chat_box").style.display = "flex";}
+	};
 
-	var x = window.matchMedia("(max-width:800px)")
+	var x = window.matchMedia("(max-width:800px)");
 
 	const handleChatClick = () => {
 		dispatch(chatApi(id));
@@ -28,12 +25,12 @@ const PersonalChat = (props) => {
 				userName: name.charAt(0).toUpperCase().concat(name.slice(1)),
 			})
 		);
+		document.querySelector(".emptyChatArea").style.display="none";
+		document.querySelector(".chat_box").style.display="flex";
 
 		if (chat[0]) {
 			const elem = document.querySelector(".chat_box_chatArea");
-			setTimeout(() => {
-				elem.scrollTop = elem.scrollHeight;
-			}, 50);
+			if (elem) elem.scrollTop = elem.scrollHeight;
 		}
 		viewport(x);
 	};

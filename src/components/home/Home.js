@@ -13,7 +13,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { clearChat } from "../../store/slices/ChatSlice";
 
 const Home = () => {
-	const { reciever, chat } = useAppSelector();
+	const { reciever} = useAppSelector();
 
 	let history = useNavigate();
 	const dispatch = useDispatch();
@@ -119,8 +119,7 @@ const Home = () => {
 			</div>
 
 			{/* chat box on right */}
-			{chat.data[0] ? (
-				<div className="chat_box">
+				<div className="chat_box" style={{display:"none"}}>
 					<header className="chat_box_info">
 						<div className="chat_box_info_profile" style={{ display: "flex" }}>
 							<span
@@ -150,11 +149,9 @@ const Home = () => {
 						</button>
 					</section>
 				</div>
-			) : (
 				<div className="emptyChatArea">
 					<img src={emptyChatIllustration} alt="emptyChat" />
 				</div>
-			)}
 		</section>
 	);
 };
