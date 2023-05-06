@@ -3,6 +3,7 @@ import { useAppSelector } from "../../store/storeAccess";
 import io from "socket.io-client";
 import { setLastMessage } from "../../store/slices/ChatSlice";
 import { useDispatch } from "react-redux";
+import Message from "./Message";
 
 const ChatBox = () => {
 	const { chat } = useAppSelector();
@@ -29,16 +30,7 @@ const ChatBox = () => {
 			) : (
 				chat.data.map((item) => {
 					return (
-						<div
-							className={` ${
-								item.from === localStorage.getItem("userId")
-									? "flex-end"
-									: "chat_box_chatArea_message"
-							}`}
-							key={item._id}>
-							{" "}
-							{item.body}{" "}
-						</div>
+						<Message key={item._id} message={item.body} sender={item.from} />
 					);
 				})
 			)}
