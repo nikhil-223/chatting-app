@@ -14,7 +14,7 @@ const ConnectionSlice = createSlice({
 	extraReducers: (builder)=>{
 		// Define an action called "setAlert"
 		builder.addCase(connectionsApi.fulfilled,(state,action)=>{
-			state.data= action.payload;
+			if (typeof action.payload !== "string") state.data = action.payload;
 			state.isLoading = false;
 			state.isError = false;
 		})

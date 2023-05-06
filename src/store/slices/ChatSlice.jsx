@@ -26,7 +26,7 @@ const ChatSlice = createSlice({
 		});
 
 		builder.addCase(chatApi.pending, (state, action) => {
-			state.chat = [];
+			state.data = [];
 			state.isLoading= true
 			state.isError= false
 		});
