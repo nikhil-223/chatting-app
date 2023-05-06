@@ -30,7 +30,12 @@ const ChatBox = () => {
 			) : (
 				chat.data.map((item) => {
 					return (
-						<Message key={item._id} message={item.body} sender={item.from} />
+						<Message
+							key={item._id}
+							message={item.body}
+							sender={item.from}
+							messageId={item._id}
+						/>
 					);
 				})
 			)}

@@ -1,9 +1,10 @@
 import React from "react";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { useDispatch } from "react-redux";
+import { deleteMessage } from "../../api/api";
 
 const Message = (props) => {
-	const { message, sender } = props;
+	const { message, sender ,messageId} = props;
     const dispatch = useDispatch();
 
 	// handle dots click
@@ -32,7 +33,7 @@ const Message = (props) => {
 
 	// delete message
 	const handleDeleteMessage = () => {
-        dispatch()
+        dispatch(deleteMessage(messageId));
     };
 
 	return (

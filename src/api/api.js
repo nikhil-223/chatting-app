@@ -89,6 +89,23 @@ export const chatApi = createAsyncThunk("chatApi", async (to) => {
 	);
 	return response.json();
 });
+// api call to delete the messages with an individual user
+export const deleteMessage = createAsyncThunk("deleteMessage", async (messageId) => {
+	const response = await fetch(
+		`${host}/api/messages/deleteMessage`,
+		{
+			method: "DELETE",
+			headers: {
+				"Content-Type": "application/json",
+				auth: localStorage.getItem("token"),
+			},
+			body:JSON.stringify({
+				messageId
+			})
+		}
+	);
+	return response.json();
+});
 
 // api call to send personal message to individual user
 export const sendMessageApi = createAsyncThunk(

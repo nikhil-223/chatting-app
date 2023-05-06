@@ -43,7 +43,7 @@ const PersonalChat = (props) => {
 					{name.charAt(0).toUpperCase().concat(name.slice(1))}
 				</span>
 				<span className="chat_logs_convo_item_info_lastMessage">
-					{lastMessage.split("").slice(0, 20).join().split(",")} ...
+					{lastMessage.split(" ").slice(0, 5).join(" ")} {lastMessage.split("").length>=15 && "..."}
 				</span>
 			</div>
 		</div>
