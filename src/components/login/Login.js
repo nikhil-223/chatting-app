@@ -6,7 +6,7 @@ import { loginApi } from "../../api/api";
 import { useAppSelector } from "../../store/storeAccess";
 
 const Login = () => {
-	const { isErrorLogin } = useAppSelector();
+	const { isErrorLogin, user } = useAppSelector();
 	const dispatch = useDispatch();
 	let history = useNavigate();
 
@@ -85,6 +85,9 @@ const Login = () => {
 						</button>
 						<Link to="/signup">Sign Up</Link>
 					</div>
+					{/* <div style={!user.isLoading && {visibility:"hidden"}}>
+						loading
+					</div> */}
 				</div>
 			</div>
 		</div>
