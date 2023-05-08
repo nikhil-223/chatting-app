@@ -23,6 +23,7 @@ const PersonalChat = (props) => {
 			setReciver({
 				userId: id,
 				userName: name.charAt(0).toUpperCase().concat(name.slice(1)),
+				image:image
 			})
 		);
 		document.querySelector(".emptyChatArea").style.display="none";
