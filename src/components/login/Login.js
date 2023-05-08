@@ -16,7 +16,7 @@ const Login = () => {
 		if (token) {
 			history("/home/personalChats");
 		}
-	}, [token,history, dispatch]);
+	}, [token, history, dispatch]);
 
 	const [username, setUsername] = useState("");
 	const handleUsernameChange = (e) => {
@@ -65,20 +65,27 @@ const Login = () => {
 						style={{ visibility: "hidden" }}>
 						{`*${alertMessage.message}`}
 					</div>
-					<input
-						type="text"
-						name="username"
-						placeholder="Username"
-						onChange={handleUsernameChange}
-						value={username}
-					/>
-					<input
-						type="text"
-						name="password"
-						placeholder="Password"
-						onChange={handlePasswordChange}
-						value={password}
-					/>
+					<div>
+						<label className="label">Username</label>
+						<input
+							type="text"
+							name="username"
+							placeholder="Enter Username"
+							onChange={handleUsernameChange}
+							value={username}
+						/>
+					</div>
+
+					<div>
+						<label className="label">Password</label>
+						<input
+							type="text"
+							name="password"
+							placeholder="Enter Password"
+							onChange={handlePasswordChange}
+							value={password}
+						/>
+					</div>
 					<div className="login_box_form_button-area">
 						<button type="submit" onClick={handleLogin}>
 							Log in

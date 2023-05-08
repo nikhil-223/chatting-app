@@ -40,13 +40,21 @@
 				height: 3.25rem;
 				width: 100%;
 				border-radius: 0.5rem;
-				padding: 1rem;
+				padding: 1.8rem;
 				border: 0.1rem solid rgba(0, 0, 0, 0.34);
 				outline:none;
 				background-color: var(--bg-color8);
 				color: white;
 			}
-
+			& label{
+				position: absolute;
+				font-size: 1rem;
+				transform: translate(0,-50%);
+				margin-left: 0.5rem;
+				background-color: $color-30;
+				color: rgb(219, 239, 241);
+				padding: 0.4rem;
+			}
 			&_button-area {
 				display: flex;
 				justify-content: space-between;
@@ -68,5 +76,11 @@
 			}
 			}
 		}
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.login_box_form{
+		padding: 2rem;
 	}
 }

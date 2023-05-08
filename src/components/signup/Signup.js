@@ -75,6 +75,9 @@ const Signup = () => {
 					<div
 						className="signup_box_form_error"
 						style={{ visibility: "hidden" }}>{`*${alertMessage.message}`}</div>
+					
+					<div>
+						<label className="label">Name</label>
 					<input
 						type="text"
 						name="name"
@@ -82,6 +85,9 @@ const Signup = () => {
 						value={name}
 						onChange={handleNameChange}
 					/>
+					</div>
+					<div>
+						<label className="label">Username</label>
 					<input
 						type="text"
 						name="username"
@@ -89,6 +95,9 @@ const Signup = () => {
 						value={username}
 						onChange={handleUsernameChange}
 					/>
+					</div>
+					<div>
+						<label className="label">Password</label>
 					<input
 						type="text"
 						name="password"
@@ -96,6 +105,9 @@ const Signup = () => {
 						value={password}
 						onChange={handlePasswordChange}
 					/>
+					</div>
+					<div>
+						<label className="label">Confirm Password</label>
 					<input
 						type="text"
 						name="confirm password"
@@ -103,6 +115,7 @@ const Signup = () => {
 						value={password2}
 						onChange={handlePassword2Change}
 					/>
+					</div>
 					<div className="signup_box_form_button-area">
 						<button onClick={handleSignup}>Sign up</button>
 						<Link to="/login">Already have an account?</Link>
