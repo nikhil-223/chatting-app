@@ -18,28 +18,26 @@ const ChatLogs = () => {
 		}
 	}, [token, dispatch, history]);
 
-	return (
+	return conversations.isLoading === true ? (
+		<div className="loader">
+			<img src="https://i.gifer.com/Vp3R.gif" alt="loader" />
+		</div>
+	) : (
 		<section className="chat_logs_convo">
 			<div className="chat_logs_convo_item global_chat">
 				<span className="profile_photo_chat">G</span> Global Chats
 			</div>
-			{conversations.isLoading === true ? (
-				<div className="loader">
-					<img src="https://i.gifer.com/Vp3R.gif" alt="loader" />
-				</div>
-			) : (
-				conversations.data.map((item, i) => {
-					return (
-						<PersonalChat
-							key={i}
-							name={item.chatter[0].name}
-							image={item.chatter[0].imageFile}
-							lastMessage={item.lastMessage}
-							id={item.chatter[0]._id}
-						/>
-					);
-				})
-			)}
+			{conversations.data.map((item, i) => {
+				return (
+					<PersonalChat
+						key={i}
+						name={item.chatter[0].name}
+						image={item.chatter[0].imageFile}
+						lastMessage={item.lastMessage}
+						id={item.chatter[0]._id}
+					/>
+				);
+			})}
 		</section>
 	);
 };
