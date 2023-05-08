@@ -6,14 +6,26 @@ import { signup } from "../../api/api";
 import { useAppSelector } from "../../store/storeAccess";
 
 const Signup = () => {
-	const { isErrorSignup,user} = useAppSelector();
+	const { isErrorSignup, user } = useAppSelector();
 	const dispatch = useDispatch();
 	let history = useNavigate();
 
-	const [name, setname] = useState("");
-	const handleNameChange = (e) => {
-		setname(e.target.value);
+	const onEnter = (e) => {
+		if (e.key === "Enter") {
+			var inputlist = Array.from(document.querySelectorAll(".signupInput"));
+			inputlist.map((item, i) => {
+				if (e.target === item && e.target !== inputlist[inputlist.length - 1]) {
+					inputlist[i + 1].focus();
+				} else if (e.target === inputlist[inputlist.length - 1]) {
+					document.querySelector(".signupBtn").click();
+					console.log("hel");
+				}
+				return 0;
+			});
+			// $(".signupInput").eq(index).focus();
+		}
 	};
+
 	const token = localStorage.getItem("token");
 
 	useEffect(() => {
@@ -22,19 +34,28 @@ const Signup = () => {
 		}
 	}, [token, history, dispatch]);
 
+	const [name, setname] = useState("");
+	const handleNameChange = (e) => {
+		setname(e.target.value);
+		alert("", "");
+	};
+
 	const [username, setUsername] = useState("");
 	const handleUsernameChange = (e) => {
 		setUsername(e.target.value);
+		alert("", "");
 	};
 
 	const [password, setPassword] = useState("");
 	const handlePasswordChange = (e) => {
 		setPassword(e.target.value);
+		alert("", "");
 	};
 
 	const [password2, setPassword2] = useState("");
 	const handlePassword2Change = (e) => {
 		setPassword2(e.target.value);
+		alert("", "");
 	};
 
 	const [alertMessage, setAlertMessage] = useState({
@@ -50,7 +71,10 @@ const Signup = () => {
 
 	useEffect(() => {
 		if (isErrorSignup) alert("user name is taken", "username");
-	}, [isErrorSignup]);
+		if (user.error !== "") {
+			alert(user.error, "password2");
+		}
+	}, [isErrorSignup,user.error]);
 
 	const handleSignup = () => {
 		if (name === "") {
@@ -74,11 +98,15 @@ const Signup = () => {
 				<div className="signup_box_form">
 					<div
 						className="signup_box_form_error"
-						style={{ visibility: "hidden" }}>{`*${alertMessage.message}`}</div>
+						style={{ visibility: "hidden" }}>{`${
+						alertMessage.message !== "" ? "*" : ""
+					}${alertMessage.message}`}</div>
 
 					<div className="inputField">
 						<label className="label">Name</label>
 						<input
+							className="signupInput"
+							onKeyDown={onEnter}
 							type="text"
 							name="name"
 							placeholder="Name"
@@ -89,6 +117,8 @@ const Signup = () => {
 					<div className="inputField">
 						<label className="label">Username</label>
 						<input
+							className="signupInput"
+							onKeyDown={onEnter}
 							type="text"
 							name="username"
 							placeholder="Username"
@@ -99,6 +129,8 @@ const Signup = () => {
 					<div className="inputField">
 						<label className="label">Password</label>
 						<input
+							className="signupInput"
+							onKeyDown={onEnter}
 							type="password"
 							name="password"
 							placeholder="Password"
@@ -109,6 +141,8 @@ const Signup = () => {
 					<div className="inputField">
 						<label className="label">Confirm Password</label>
 						<input
+							className="signupInput"
+							onKeyDown={onEnter}
 							type="password"
 							name="confirm password"
 							placeholder="Confirm Password"
@@ -117,7 +151,9 @@ const Signup = () => {
 						/>
 					</div>
 					<div className="signup_box_form_button-area">
-						<button onClick={handleSignup}>Sign up</button>
+						<button className="signupBtn" onClick={handleSignup}>
+							Sign up
+						</button>
 						<Link to="/login">Already have an account?</Link>
 					</div>
 				</div>

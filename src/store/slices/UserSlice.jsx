@@ -26,8 +26,10 @@ const UserSlice = createSlice({
 				state.isLoading = false;
 			} else {
 				state.isError = true;
-				state.error= action.payload
+				state.error= action.payload.username
 				state.token = "";
+				state.isLoading = false;
+
 			} 
 		});
 
@@ -35,11 +37,13 @@ const UserSlice = createSlice({
 			state.token = "";
 			state.isError = false;
 			state.isLoading = true;
+			state.error=''
 		});
 
 		builder.addCase(signup.rejected, (state, action) => {
 			state.error = action.payload;
 			state.isError = true;
+			state.error=action.payload.username
 			state.isLoading = false;
 			state.token = "";
 		});
@@ -64,6 +68,7 @@ const UserSlice = createSlice({
 		builder.addCase(loginApi.pending, (state, action) => {
 			state.token = "";
 			state.isError = false;
+			state.error=''
 			state.isLoading = true;
 		});
 
