@@ -4,7 +4,7 @@ import { chatApi } from "../../api/api";
 import { setReciver } from "../../store/slices/MessageSlice";
 
 const UsersItem = (props) => {
-	const { name, id } = props;
+	const { name, id ,image} = props;
 	const dispatch = useDispatch();
 
 	const viewport = (x) => {
@@ -22,6 +22,7 @@ const UsersItem = (props) => {
 			setReciver({
 				userId: id,
 				userName: name.charAt(0).toUpperCase().concat(name.slice(1)),
+				image:image
 			})
 		);
 		document.querySelector(".emptyChatArea").style.display = "none";
@@ -36,7 +37,10 @@ const UsersItem = (props) => {
 		<div
 			className="chat_logs_convo_item personal_chat_item"
 			onClick={handleChatClick}>
-			<span className="profile_photo_chat">{name.charAt(0).toUpperCase()}</span>
+			<span className="profile_photo_chat">
+				<img src={image} alt="N" /> 
+				{/* {name.charAt(0).toUpperCase()} */}
+			</span>
 			{name.charAt(0).toUpperCase().concat(name.slice(1))}
 		</div>
 	);

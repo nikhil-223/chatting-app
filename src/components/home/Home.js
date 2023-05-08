@@ -22,7 +22,7 @@ const Home = () => {
 	const JWTtoken= localStorage.getItem('token') 
 	useEffect(() => {
 	  dispatch(myDetails(JWTtoken))
-	}, [JWTtoken])
+	}, [JWTtoken,dispatch])
 	
 
 	//show menu
@@ -136,7 +136,8 @@ const Home = () => {
 								<FaArrowLeft />
 							</span>
 							<div className=" profile_photo">
-								{reciever.userName.charAt(0)}
+								<img src={reciever.image} alt="n" />
+								{/* {reciever.userName.charAt(0)} */}
 							</div>
 						</div>
 						<div className="chat_box_info_name">{reciever.userName}</div>

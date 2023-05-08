@@ -101,7 +101,6 @@ const Signup = () => {
 		var reader = new FileReader();
 		reader.readAsDataURL(e.target.files[0]);
 		reader.onload=() => { 
-			console.log(reader.result);
 			setImageFile(reader.result)
 		 }
 		 reader.onerror= error =>{console.log('Error:',error);}

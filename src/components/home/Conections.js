@@ -25,7 +25,7 @@ const Connections = () => {
 	) : (
 		<section className="chat_logs_convo">
 			{connections.data.map((item, index) => {
-				return <UsersItem key={index} name={item.name} id={item._id} />;
+				return <UsersItem key={index} name={item.name} image={item.imageFile} id={item._id} />;
 			})}
 		</section>
 	))

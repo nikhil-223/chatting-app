@@ -5,7 +5,7 @@ import { setReciver } from "../../store/slices/MessageSlice";
 import { useAppSelector } from "../../store/storeAccess";
 
 const PersonalChat = (props) => {
-	const { name, id, lastMessage } = props;
+	const { name, id, lastMessage,image } = props;
 	const { chat } = useAppSelector();
 	const dispatch = useDispatch();
 
@@ -37,7 +37,9 @@ const PersonalChat = (props) => {
 
 	return (
 		<div className="chat_logs_convo_item" onClick={handleChatClick}>
-			<span className="profile_photo_chat">{name.charAt(0).toUpperCase()}</span>
+			<div className="profile_photo_chat">
+				<img src={image} alt="" />
+			</div>
 			<div className="chat_logs_convo_item_info">
 				<span className="chat_logs_convo_item_info_userName">
 					{name.charAt(0).toUpperCase().concat(name.slice(1))}

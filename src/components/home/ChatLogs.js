@@ -33,6 +33,7 @@ const ChatLogs = () => {
 						<PersonalChat
 							key={i}
 							name={item.chatter[0].name}
+							image={item.chatter[0].imageFile}
 							lastMessage={item.lastMessage}
 							id={item.chatter[0]._id}
 						/>
