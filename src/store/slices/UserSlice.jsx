@@ -23,11 +23,12 @@ const UserSlice = createSlice({
 				state.userName = action.payload.name;
 				state.token = action.payload.token;
 				state.isError = false;
+				state.isLoading = false;
 			} else {
 				state.isError = true;
 				state.error= action.payload
 				state.token = "";
-			}
+			} 
 		});
 
 		builder.addCase(signup.pending, (state, action) => {
@@ -52,6 +53,7 @@ const UserSlice = createSlice({
 				state.userName = action.payload.name;
 				state.token = action.payload.token;
 				state.isError = false;
+				state.isLoading=false
 			} else {
 				state.isError = true;
 				state.token = "";

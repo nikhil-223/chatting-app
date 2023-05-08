@@ -65,7 +65,7 @@ const Login = () => {
 						style={{ visibility: "hidden" }}>
 						{`*${alertMessage.message}`}
 					</div>
-					<div>
+					<div className="inputField">
 						<label className="label">Username</label>
 						<input
 							type="text"
@@ -76,10 +76,10 @@ const Login = () => {
 						/>
 					</div>
 
-					<div>
+					<div className="inputField">
 						<label className="label">Password</label>
 						<input
-							type="text"
+							type="password"
 							name="password"
 							placeholder="Enter Password"
 							onChange={handlePasswordChange}
@@ -92,10 +92,13 @@ const Login = () => {
 						</button>
 						<Link to="/signup">Sign Up</Link>
 					</div>
-					{/* <div style={!user.isLoading && {visibility:"hidden"}}>
-						loading
-					</div> */}
 				</div>
+			</div>
+
+			<div
+				className="login_loader"
+				style={{ visibility: user.isLoading ? "visible" : "hidden" }}>
+				<img src="https://i.gifer.com/Vp3R.gif" alt="loader" />
 			</div>
 		</div>
 	);

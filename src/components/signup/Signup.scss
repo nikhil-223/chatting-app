@@ -4,18 +4,19 @@
 	height: 100vh;
 	background-color: $color-5;
 	display: flex;
+	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	padding: 2rem;
 
 	&_box {
-		width: 30rem;
+		width: 30%;
+		min-width: 30rem;
 		height: auto;
 		background-color: $color-30;
 		box-shadow: 12px 13px 18px -6px rgba(0, 0, 0, 0.33);
 		border-radius: 1.2rem;
 		display: flex;
-		flex-direction: row;
 		transition: all 0.7s;
 
 		&_form {
@@ -27,35 +28,36 @@
 			gap: 1rem;
 			color: var(--text-color);
 
-			&_error{
+			&_error {
 				color: red;
 				width: 100%;
 				height: 1rem;
 				font-size: 1rem;
-				
 			}
 
-			& input{
-				height: 3.25rem;
+			& input {
+				height: 2rem;
 				width: 100%;
 				border-radius: 0.5rem;
-				padding: 1.8rem;
+				border: none;
 				outline: none;
-				border: 0.1rem solid rgba(0, 0, 0, 0.34);
 				background-color: var(--bg-color8);
 				color: white;
-			}
+				padding-left: 0.5rem;
 
-			& label{
+				&:autofill {
+					background-color: transparent var(--bg-color8);
+				}
+			}
+			& label {
 				position: absolute;
 				font-size: 1rem;
-				transform: translate(0%,-50%);
+				transform: translate(0, -120%);
+				// margin-left: 0.2rem;
 				background-color: $color-30;
 				color: rgb(219, 239, 241);
-				padding: 0.4rem;
-				margin-left: 0.5rem;
+				padding: 0 0.4rem;
 			}
-			
 
 			&_button-area {
 				display: flex;
@@ -63,27 +65,31 @@
 				align-items: center;
 				margin-top: 2rem;
 
-				& a{
+				& a {
 					color: white;
 					font-size: 0.8rem;
 					text-align: end;
 				}
 
-				& button{
-				height: 2rem;
-				width: 5rem;
-				border-radius: 0.4rem;
-				border: none;
-				background-color: rgb(40, 127, 130);
-				cursor: pointer;
-			}
+				& button {
+					height: 2rem;
+					width: 5rem;
+					border-radius: 0.4rem;
+					border: none;
+					background-color: rgb(40, 127, 130);
+					cursor: pointer;
+				}
 			}
 		}
 	}
 }
 
 @media only screen and (max-width: 600px) {
-	.signup_box_form{
-		padding: 2rem;
+	.signup_box {
+		width: 100%;
+		min-width: unset;
+		&_form {
+			padding: 2rem;
+		}
 	}
 }

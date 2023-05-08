@@ -6,7 +6,7 @@ import { signup } from "../../api/api";
 import { useAppSelector } from "../../store/storeAccess";
 
 const Signup = () => {
-	const { isErrorSignup} = useAppSelector();
+	const { isErrorSignup,user} = useAppSelector();
 	const dispatch = useDispatch();
 	let history = useNavigate();
 
@@ -75,52 +75,57 @@ const Signup = () => {
 					<div
 						className="signup_box_form_error"
 						style={{ visibility: "hidden" }}>{`*${alertMessage.message}`}</div>
-					
-					<div>
+
+					<div className="inputField">
 						<label className="label">Name</label>
-					<input
-						type="text"
-						name="name"
-						placeholder="Name"
-						value={name}
-						onChange={handleNameChange}
-					/>
+						<input
+							type="text"
+							name="name"
+							placeholder="Name"
+							value={name}
+							onChange={handleNameChange}
+						/>
 					</div>
-					<div>
+					<div className="inputField">
 						<label className="label">Username</label>
-					<input
-						type="text"
-						name="username"
-						placeholder="Username"
-						value={username}
-						onChange={handleUsernameChange}
-					/>
+						<input
+							type="text"
+							name="username"
+							placeholder="Username"
+							value={username}
+							onChange={handleUsernameChange}
+						/>
 					</div>
-					<div>
+					<div className="inputField">
 						<label className="label">Password</label>
-					<input
-						type="text"
-						name="password"
-						placeholder="Password"
-						value={password}
-						onChange={handlePasswordChange}
-					/>
+						<input
+							type="password"
+							name="password"
+							placeholder="Password"
+							value={password}
+							onChange={handlePasswordChange}
+						/>
 					</div>
-					<div>
+					<div className="inputField">
 						<label className="label">Confirm Password</label>
-					<input
-						type="text"
-						name="confirm password"
-						placeholder="Confirm Password"
-						value={password2}
-						onChange={handlePassword2Change}
-					/>
+						<input
+							type="password"
+							name="confirm password"
+							placeholder="Confirm Password"
+							value={password2}
+							onChange={handlePassword2Change}
+						/>
 					</div>
 					<div className="signup_box_form_button-area">
 						<button onClick={handleSignup}>Sign up</button>
 						<Link to="/login">Already have an account?</Link>
 					</div>
 				</div>
+			</div>
+			<div
+				className="login_loader"
+				style={{ visibility: user.isLoading ? "visible" : "hidden" }}>
+				<img src="https://i.gifer.com/Vp3R.gif" alt="loader" />
 			</div>
 		</div>
 	);
