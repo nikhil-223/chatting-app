@@ -6,7 +6,7 @@ const host = "https://chattingappbackend.onrender.com";
 // api call to register the user
 export const signup = createAsyncThunk(
 	"signup",
-	async ({ name, username, password, password2 }) => {
+	async ({ name, username, password, password2, imageFile }) => {
 		const response = await fetch(`${host}/api/users/register`, {
 			method: "POST",
 			headers: {
@@ -17,6 +17,7 @@ export const signup = createAsyncThunk(
 				username,
 				password,
 				password2,
+				imageFile,
 			}),
 		});
 		// Convert the response to a JSON object and return it
@@ -43,7 +44,7 @@ export const loginApi = createAsyncThunk(
 	}
 );
 
-// api call to get all the users 
+// api call to get all the users
 export const connectionsApi = createAsyncThunk(
 	"connectionsApi",
 	async (JWTtoken) => {
@@ -58,6 +59,19 @@ export const connectionsApi = createAsyncThunk(
 		return response.json();
 	}
 );
+
+// api call to get all the users
+export const myDetails = createAsyncThunk("myDetails", async (JWTtoken) => {
+	const response = await fetch(`${host}/api/users/userDetails`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+			auth: JWTtoken,
+		},
+	});
+	// Convert the response to a JSON object and return it
+	return response.json();
+});
 
 // api call to get all the chats user had
 export const conversationsApi = createAsyncThunk(
@@ -90,22 +104,22 @@ export const chatApi = createAsyncThunk("chatApi", async (to) => {
 	return response.json();
 });
 // api call to delete the messages with an individual user
-export const deleteMessage = createAsyncThunk("deleteMessage", async (messageId) => {
-	const response = await fetch(
-		`${host}/api/messages/deleteMessage`,
-		{
+export const deleteMessage = createAsyncThunk(
+	"deleteMessage",
+	async (messageId) => {
+		const response = await fetch(`${host}/api/messages/deleteMessage`, {
 			method: "DELETE",
 			headers: {
 				"Content-Type": "application/json",
 				auth: localStorage.getItem("token"),
 			},
-			body:JSON.stringify({
-				messageId
-			})
-		}
-	);
-	return response.json();
-});
+			body: JSON.stringify({
+				messageId,
+			}),
+		});
+		return response.json();
+	}
+);
 
 // api call to send personal message to individual user
 export const sendMessageApi = createAsyncThunk(

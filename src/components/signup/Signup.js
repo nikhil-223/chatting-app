@@ -85,12 +85,27 @@ const Signup = () => {
 			alert("please enter password", "password");
 		} else if (password2 === "") {
 			alert("please confirm password", "password2");
+		} else if (imageFile.file === null) {
+			alert("please upload image", "password2");
 		} else {
 			document.querySelector(".signup_box_form_error").style.visibility =
 				"hidden";
-			dispatch(signup({ name, username, password, password2 }));
+			dispatch(signup({ name, username, password, password2, imageFile }));
 		}
 	};
+
+	const [imageFile, setImageFile] = useState({
+		file:null
+	})
+	const handleFile = (e) => { 
+		var reader = new FileReader();
+		reader.readAsDataURL(e.target.files[0]);
+		reader.onload=() => { 
+			console.log(reader.result);
+			setImageFile(reader.result)
+		 }
+		 reader.onerror= error =>{console.log('Error:',error);}
+	 }
 
 	return (
 		<div id="signup" className="signup">
@@ -150,6 +165,11 @@ const Signup = () => {
 							onChange={handlePassword2Change}
 						/>
 					</div>
+					<div className="inputField">
+						<label htmlFor="imageUpload"> upload image</label>
+						<input type="file" onChange={handleFile}/>
+					</div>
+					{/* <img src={imageFile} alt="userImage" /> */}
 					<div className="signup_box_form_button-area">
 						<button className="signupBtn" onClick={handleSignup}>
 							Sign up

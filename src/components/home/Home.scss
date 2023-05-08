@@ -331,6 +331,12 @@
 	font-size: 1.2rem;
 	background-color: white;
 	border-radius: 50%;
+	overflow: hidden;
+
+	& img{
+		width: 100%;
+		object-fit: fill;
+	}
 
 	&_chat {
 		width: 2.5rem;

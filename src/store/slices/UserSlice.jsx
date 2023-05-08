@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginApi, signup } from "../../api/api";
+import { loginApi, myDetails, signup } from "../../api/api";
 
 // Define a new slice of the Redux store called "alert"
 const UserSlice = createSlice({
 	name: "user",
 	initialState: {
 		token: localStorage.getItem("token"),
+		data:{},
 		error:"",
 		userId: "",
 		userName: "",
@@ -78,6 +79,16 @@ const UserSlice = createSlice({
 			state.isLoading = false;
 			state.token = "";
 		});
+
+		builder.addCase(myDetails.fulfilled, (state, action) => {
+			console.log(action.payload);
+			state.data= action.payload[0]
+			state.error = "";
+			state.isError = false;
+			state.isLoading = false;
+		});
+
+
 	},
 });
 

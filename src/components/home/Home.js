@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Home.scss";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import {
+	myDetails,
 	sendMessageApi,
 } from "../../api/api";
 import { useDispatch } from "react-redux";
@@ -13,10 +14,16 @@ import { FaArrowLeft } from "react-icons/fa";
 import { clearChat } from "../../store/slices/ChatSlice";
 
 const Home = () => {
-	const { reciever} = useAppSelector();
+	const { reciever,user} = useAppSelector();
 
 	let history = useNavigate();
 	const dispatch = useDispatch();
+
+	const JWTtoken= localStorage.getItem('token') 
+	useEffect(() => {
+	  dispatch(myDetails(JWTtoken))
+	}, [JWTtoken])
+	
 
 	//show menu
 	const showMenu = () => {
@@ -89,9 +96,10 @@ const Home = () => {
 						autoComplete="off"
 					/>
 					<div className="chat_logs_search_profile " onClick={showMenu}>
-						<span className="profile_photo">
-							{localStorage.getItem("userName").charAt(0).toUpperCase()}
-						</span>
+						<div className="profile_photo">
+							<img src={user.data.imageFile} alt="" />
+							{/* {localStorage.getItem("userName").charAt(0).toUpperCase()} */}
+						</div>
 						<ul
 							style={{ display: "none" }}
 							className="chat_logs_search_profile_menu">
