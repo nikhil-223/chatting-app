@@ -2,6 +2,9 @@
 
 This is a chatting app that allows users to sign up, login, and chat with other users either in a global chat room or via personal chat. It is built using the Socket.IO library to enable real-time communication between users, and has a frontend component built with React.js.
 
+## Demo
+https://chatttingapp.netlify.app/ 
+
 ## ⭐️⭐️⭐️ Features
 
 - **Signup and Login:** Users can create an account by providing their name, email, and a password. They can then use these credentials to log in to the app.
