@@ -1,4 +1,5 @@
-# Chatting App 
+# Talkr
+### A chatting app 
 
 This is a chatting app that allows users to sign up, login, and chat with other users either in a global chat room or via personal chat. It is built using the Socket.IO library to enable real-time communication between users, and has a frontend component built with React.js.
 
